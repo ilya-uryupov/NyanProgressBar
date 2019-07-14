@@ -2,7 +2,6 @@
   <id>some.awesome</id>
   <name>Nyan Progress Bar</name>
   <version>1.13</version>
-  <idea-version since-build="141"/>
   <vendor email="dmitry.batkovich@jetbrains.com">Dmitry Batkovich</vendor>
 
   <description><![CDATA[
@@ -22,6 +21,8 @@
       <em>1.3 cool indeterminate progress bar</em><br>
     ]]>
   </change-notes>
+
+  <idea-version since-build="141.0"/>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
