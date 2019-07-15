@@ -25,7 +25,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(20));
+        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(12));
    }
 
     @Override
@@ -137,9 +137,11 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 //        if (velocity < 0) {
 //            scaledIcon = new ReflectedIcon(scaledIcon);
 //        }
-        scaledIcon.paintIcon(progressBar, g, offset2 - JBUI.scale(10), -JBUI.scale(6));
 
         g.draw(new RoundRectangle2D.Float(1f, 1f, w - 2f - 1f, h - 2f -1f, R, R));
+
+        scaledIcon.paintIcon(progressBar, g, getIconPositionX(offset2, false), -JBUI.scale(9));
+
         g.translate(0, -(c.getHeight() - h) / 2);
 
         // Deal with possible text painting
@@ -200,8 +202,8 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
 //        g2.setColor(progressBar.getForeground());
         g2.setPaint(getRainbowPaintFromHeight(h));
 
-        NyanIcons.CAT_ICON.paintIcon(progressBar, g2, amountFull - JBUI.scale(10), -JBUI.scale(6));
         g2.fill(new RoundRectangle2D.Float(2f*off,2f*off, amountFull - JBUI.scale(5f), h - JBUI.scale(5f), JBUI.scale(7f), JBUI.scale(7f)));
+        NyanIcons.CAT_ICON.paintIcon(progressBar, g2, getIconPositionX(amountFull, true), -JBUI.scale(10));
         g2.translate(0, -(c.getHeight() - h)/2);
 
         // Deal with possible text painting
@@ -211,6 +213,19 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
                     amountFull, b);
         }
         config.restore();
+    }
+
+    private int getIconPositionX(int initialX, boolean isDeterminate) {
+        int maxX = progressBar.getWidth() - 25;
+
+        if (!isDeterminate) {
+            initialX -= JBUI.scale(8);
+            maxX += 9;
+        } else {
+            initialX -= JBUI.scale(15);
+        }
+
+        return Math.max(-5, Math.min(maxX, initialX));
     }
 
     private void paintString(Graphics g, int x, int y, int w, int h, int fillStart, int amountFull) {
@@ -268,7 +283,7 @@ public class NyanProgressBarUi extends BasicProgressBarUI {
         }
 
         return new LinearGradientPaint(0, JBUI.scale(1),
-                0, scaledHeight - JBUI.scale(3),
+                0, scaledHeight - JBUI.scale(4),
                 fractionList, colorList);
     }
 
